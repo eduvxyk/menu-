@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu com Hover + JS - Feito pelo Grok 😂</title>
+  <title>Menu Vertical - Linha Azul Sempre Visível 😂</title>
   <style>
     * {
       margin: 0;
@@ -22,100 +22,83 @@
 
     .navbar {
       background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 15px 40px;
-      border-radius: 60px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      position: relative;
+      backdrop-filter: blur(12px);
+      padding: 30px 25px;
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+      width: 300px;
+      text-align: center;
     }
 
     .logo {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 800;
       color: #2575fc;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 35px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .menu {
       display: flex;
-      gap: 30px;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .menu a {
       text-decoration: none;
       color: #333;
       font-weight: 600;
-      font-size: 17px;
+      font-size: 18px;
+      padding: 16px 20px;
+      border-radius: 15px;
       position: relative;
-      padding: 10px 18px;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: left;
+      overflow: hidden;
     }
 
-    /* Efeito Hover Principal */
+    /* Fundo suave no hover */
     .menu a:hover {
+      background: #f0f4ff;
       color: #2575fc;
-      transform: translateY(-4px);
+      transform: translateX(12px);
     }
 
-    /* Underline animado que cresce */
-    .menu a::after {
+    /* LINHA AZUL SEMPRE VISÍVEL em TODOS os botões */
+    .menu a::before {
       content: '';
       position: absolute;
-      bottom: -6px;
       left: 0;
-      width: 0;
-      height: 4px;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      border-radius: 2px;
-      transition: width 0.4s ease;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 65%;                    /* altura fixa - sempre visível */
+      background: linear-gradient(to bottom, #6a11cb, #2575fc);
+      border-radius: 0 4px 4px 0;
+      transition: all 0.4s ease;
     }
 
-    .menu a:hover::after {
-      width: 100%;
+    /* Efeito extra quando passa o mouse */
+    .menu a:hover::before {
+      width: 10px;   /* linha fica um pouco mais grossa no hover */
     }
 
-    /* Item ativo */
+    /* Item ativo (clicado) - fica ainda mais destacado */
     .menu a.active {
+      background: #f0f4ff;
       color: #2575fc;
+      transform: translateX(12px);
     }
 
-    .menu a.active::after {
-      width: 100%;
+    .menu a.active::before {
+      width: 10px;
+      background: linear-gradient(to bottom, #2575fc, #6a11cb);
     }
 
-    /* Botão Mobile */
-    .hamburger {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: #333;
-    }
-
-    /* Responsivo - Menu Mobile */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-      }
-
-      .menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        flex-direction: column;
-        padding: 20px;
-        border-radius: 0 0 20px 20px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        display: none;
-        gap: 15px;
-      }
-
-      .menu.active {
-        display: flex;
+    @media (max-width: 480px) {
+      .navbar {
+        width: 90%;
+        padding: 25px 15px;
       }
     }
   </style>
@@ -132,41 +115,19 @@
       <a href="#">Portfólio</a>
       <a href="#">Contato</a>
     </div>
-
-    <div class="hamburger" id="hamburger">☰</div>
   </nav>
 
   <script>
-    // JavaScript pra menu mobile + ativo
-    const hamburger = document.getElementById('hamburger');
-    const menu = document.getElementById('menu');
     const links = document.querySelectorAll('.menu a');
 
-    // Abre e fecha o menu no mobile
-    hamburger.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      
-      // Muda o ícone do hambúrguer
-      if (menu.classList.contains('active')) {
-        hamburger.textContent = '✕';
-      } else {
-        hamburger.textContent = '☰';
-      }
-    });
-
-    // Fecha o menu quando clica em um link (mobile)
     links.forEach(link => {
       link.addEventListener('click', () => {
-        menu.classList.remove('active');
-        hamburger.textContent = '☰';
-        
-        // Deixa só o link clicado como ativo
         links.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
       });
     });
 
-    console.log('%cMenu atualizado com sucesso! Agora com logo "Menu" bonitinho 😂', 
+    console.log('%cLinha azul agora fica SEMPRE visível em todos os botões! Efeito coletivo ativado 😂', 
       'color: #2575fc; font-size: 16px; font-weight: bold;');
   </script>
 
